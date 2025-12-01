@@ -85,7 +85,6 @@
                         <a href="{% url 'feature' %}" class="dropdown-item">Features</a>
                         <a href="{% url 'team' %}" class="dropdown-item">Our Team</a>
                         <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
-                        <a href="{% url 'notfound' %}" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
                 <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
@@ -122,70 +121,27 @@
                 <h1 class="mb-5">Our Dairy Products For Healthy Living</h1>
             </div>
             <div class="row gx-4">
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-1.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
+                {% for product in products %}
+                <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-stretch">
+                    <div class="product-item d-flex flex-column w-100 h-100">
+                        <div class="position-relative w-100" style="aspect-ratio:1/1; max-width:100%;">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-100 h-100" style="object-fit:cover; aspect-ratio:1/1; width:100%; height:100%; min-height:0; min-width:0; display:block; border-radius:1rem;" />
+                            {% else %}
+                            <span class="text-muted d-flex align-items-center justify-content-center w-100 h-100" style="aspect-ratio:1/1; min-height:120px;">No Image</span>
+                            {% endif %}
+                            <div class="product-overlay d-flex flex-column justify-content-center align-items-center position-absolute top-0 start-0 w-100 h-100" style="background:rgba(255,255,255,0.0); aspect-ratio:1/1;">
+                                <a class="btn btn-square btn-secondary rounded-circle m-1" href="#"><i class="bi bi-link"></i></a>
+                                <a class="btn btn-square btn-secondary rounded-circle m-1" href="#"><i class="bi bi-cart"></i></a>
                             </div>
                         </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Pure Milk</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
+                        <div class="text-center p-2 flex-grow-1 d-flex flex-column justify-content-between">
+                            <a class="d-block h6 mb-1" href="#">{{ product.name }}</a>
+                            <span class="text-primary me-1">Rs.{{ product.price }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-2.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Fresh Meat</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-3.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Dairy Products</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-4.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Organic Food</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

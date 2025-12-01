@@ -86,7 +86,6 @@
                         <a href="{% url 'feature' %}" class="dropdown-item">Features</a>
                         <a href="{% url 'team' %}" class="dropdown-item">Our Team</a>
                         <a href="{% url 'testimonial' %}" class="dropdown-item active">Testimonial</a>
-                        <a href="{% url 'notfound' %}" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
                 <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
@@ -116,7 +115,7 @@
 
 
     <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
+   <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="section-title bg-white text-center text-primary px-3">Testimonial</p>
@@ -132,31 +131,29 @@
                     </div>
                 </div>
                 <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
+                    {% if testimonials %}
+                    <div class="mb-4 p-3 bg-white rounded border">
+                        <h6 class="text-secondary mb-2">Latest Testimonials</h6>
+                        {% for testimonial in testimonials|slice:':3' %}
+                            <div class="mb-3 pb-2 border-bottom">
+                                <p class="mb-1">"{{ testimonial.text }}"</p>
+                                <small class="text-muted">- {{ testimonial.client_name }}, {{ testimonial.profession }}</small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    </div>
                     <div class="owl-carousel testimonial-carousel">
+                        {% for testimonial in testimonials %}
                         <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-1.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
+                            {% if testimonial.image %}
+                            <img class="img-fluid mb-3" src="{{ testimonial.image.url }}" alt="{{ testimonial.client_name }}">
+                            {% endif %}
+                            <p class="fs-5">{{ testimonial.text }}</p>
+                            <h5>{{ testimonial.client_name }}</h5>
+                            <span class="text-primary">{{ testimonial.profession }}</span>
                         </div>
-                        <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-2.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
-                        </div>
-                        <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-3.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
-                        </div>
-                        <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-4.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

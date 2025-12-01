@@ -85,7 +85,6 @@
                         <a href="{% url 'feature' %}" class="dropdown-item">Features</a>
                         <a href="{% url 'team' %}" class="dropdown-item">Our Team</a>
                         <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
-                        <a href="{% url 'notfound' %}" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
                 <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
@@ -96,7 +95,6 @@
         </div>
     </nav>
     <!-- Navbar End -->
-
 
     <!-- Carousel Start -->
     <div class="container-fluid px-0 mb-5">
@@ -200,10 +198,9 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <p class="section-title bg-white text-start text-primary pe-3">Why Us!</p>
                     <h1 class="mb-4">Few Reasons Why People Choosing Us!</h1>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Justo magna erat amet</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Aliqu diam amet diam et eos</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Clita erat ipsum et lorem et sit</p>
+                    {% for feature in features %}
+                        <p><i class="fa fa-check text-primary me-3"></i>{{ feature.title }}{% if feature.description %}: {{ feature.description }}{% endif %}</p>
+                    {% endfor %}
                     <a class="btn btn-secondary rounded-pill py-3 px-5 mt-3" href="">Explore More</a>
                 </div>
                 <div class="col-lg-6">
@@ -288,51 +285,26 @@
                 <h1 class="mb-5">Services That We Offer For Entrepreneurs</h1>
             </div>
             <div class="row gy-5 gx-4">
-                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.1s">
+                {% for service in services %}
+                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
                     <div class="service-item d-flex h-100">
                         <div class="service-img">
-                            <img class="img-fluid" src="{% static 'img/service-1.jpg' %}" alt="">
+                            {% if service.image %}
+                            <img class="img-fluid" src="{{ service.image.url }}" alt="">
+                            {% endif %}
                         </div>
                         <div class="service-text p-5 pt-0">
                             <div class="service-icon">
-                                <img class="img-fluid rounded-circle" src="{% static 'img/service-1.jpg' %}" alt="">
+                                {% if service.image %}
+                                <img class="img-fluid rounded-circle" src="{{ service.image.url }}" alt="">
+                                {% endif %}
                             </div>
-                            <h5 class="mb-3">Best Animal Selection</h4>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
+                            <h5 class="mb-3">{{ service.title }}</h5>
+                            <p class="mb-4">{{ service.description }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item d-flex h-100">
-                        <div class="service-img">
-                            <img class="img-fluid" src="{% static 'img/service-2.jpg' %}" alt="">
-                        </div>
-                        <div class="service-text p-5 pt-0">
-                            <div class="service-icon">
-                                <img class="img-fluid rounded-circle" src="{% static 'img/service-2.jpg' %}" alt="">
-                            </div>
-                            <h5 class="mb-3">Breeding & Veterinary</h5>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item d-flex h-100">
-                        <div class="service-img">
-                            <img class="img-fluid" src="{% static 'img/service-3.jpg' %}" alt="">
-                        </div>
-                        <div class="service-text p-5 pt-0">
-                            <div class="service-icon">
-                                <img class="img-fluid rounded-circle" src="{% static 'img/service-3.jpg' %}" alt="">
-                            </div>
-                            <h5 class="mb-3">Care & Milking</h5>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -342,139 +314,51 @@
     <!-- Gallery Start -->
     <div class="container-xxl py-5 px-0">
         <div class="row g-0">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            {% for image in gallery %}
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
                 <div class="row g-0">
                     <div class="col-12">
-                        <a class="d-block" href="img/gallery-5.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-5.jpg' %}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-12">
-                        <a class="d-block" href="img/gallery-1.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-1.jpg' %}" alt="">
+                        <a class="d-block" href="{{ image.image.url }}" data-lightbox="gallery">
+                            <img class="img-fluid" src="{{ image.image.url }}" alt="{{ image.title }}">
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="row g-0">
-                    <div class="col-12">
-                        <a class="d-block" href="img/gallery-2.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-2.jpg' %}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-12">
-                        <a class="d-block" href="img/gallery-6.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-6.jpg' %}" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="row g-0">
-                    <div class="col-12">
-                        <a class="d-block" href="img/gallery-7.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-7.jpg' %}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-12">
-                        <a class="d-block" href="img/gallery-3.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-3.jpg' %}" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="row g-0">
-                    <div class="col-12">
-                        <a class="d-block" href="img/gallery-4.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-4.jpg' %}" alt="">
-                        </a>
-                    </div>
-                    <div class="col-12">
-                        <a class="d-block" href="img/gallery-8.jpg" data-lightbox="gallery">
-                            <img class="img-fluid" src="{% static 'img/gallery-8.jpg' %}" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <!-- Gallery End -->
 
 
     <!-- Product Start -->
-    <div class="container-xxl py-5">
+     <div class="container-xxl py-2">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="section-title bg-white text-center text-primary px-3">Our Products</p>
                 <h1 class="mb-5">Our Dairy Products For Healthy Living</h1>
             </div>
             <div class="row gx-4">
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-1.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
+                {% for product in products %}
+                <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-stretch">
+                    <div class="product-item d-flex flex-column w-100 h-100">
+                        <div class="position-relative w-100" style="aspect-ratio:1/1; max-width:100%;">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-100 h-100" style="object-fit:cover; aspect-ratio:1/1; width:100%; height:100%; min-height:0; min-width:0; display:block; border-radius:1rem;" />
+                            {% else %}
+                            <span class="text-muted d-flex align-items-center justify-content-center w-100 h-100" style="aspect-ratio:1/1; min-height:120px;">No Image</span>
+                            {% endif %}
+                            <div class="product-overlay d-flex flex-column justify-content-center align-items-center position-absolute top-0 start-0 w-100 h-100" style="background:rgba(255,255,255,0.0); aspect-ratio:1/1;">
+                                <a class="btn btn-square btn-secondary rounded-circle m-1" href="#"><i class="bi bi-link"></i></a>
+                                <a class="btn btn-square btn-secondary rounded-circle m-1" href="#"><i class="bi bi-cart"></i></a>
                             </div>
                         </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Pure Milk</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
+                        <div class="text-center p-2 flex-grow-1 d-flex flex-column justify-content-between">
+                            <a class="d-block h6 mb-1" href="#">{{ product.name }}</a>
+                            <span class="text-primary me-1">Rs.{{ product.price }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-2.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Fresh Meat</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-3.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Dairy Products</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{% static 'img/product-4.jpg' %}" alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Organic Food</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -489,42 +373,22 @@
                 <h1 class="mb-5">Experienced Team Members</h1>
             </div>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                {% for member in team %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
                     <div class="team-item rounded p-4">
-                        <img class="img-fluid rounded mb-4" src="{% static 'img/team-1.jpg' %}" alt="">
-                        <h5>Adam Crew</h5>
-                        <p class="text-primary">Founder</p>
+                        {% if member.image %}
+                        <img class="img-fluid rounded mb-4" src="{{ member.image.url }}" alt="{{ member.name }}">
+                        {% endif %}
+                        <h5>{{ member.name }}</h5>
+                        <p class="text-primary">{{ member.role }}</p>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            {% if member.facebook %}<a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href="{{ member.facebook }}"><i class="fab fa-facebook-f"></i></a>{% endif %}
+                            {% if member.twitter %}<a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href="{{ member.twitter }}"><i class="fab fa-twitter"></i></a>{% endif %}
+                            {% if member.instagram %}<a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href="{{ member.instagram }}"><i class="fab fa-instagram"></i></a>{% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded p-4">
-                        <img class="img-fluid rounded mb-4" src="{% static 'img/team-2.jpg' %}" alt="">
-                        <h5>Doris Jordan</h5>
-                        <p class="text-primary">Veterinarian</p>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item rounded p-4">
-                        <img class="img-fluid rounded mb-4" src="{% static 'img/team-3.jpg' %}" alt="">
-                        <h5>Jack Dawson</h5>
-                        <p class="text-primary">Farmer</p>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-outline-secondary rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -532,7 +396,7 @@
 
 
     <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
+       <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="section-title bg-white text-center text-primary px-3">Testimonial</p>
@@ -548,31 +412,29 @@
                     </div>
                 </div>
                 <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
+                    {% if testimonials %}
+                    <div class="mb-4 p-3 bg-white rounded border">
+                        <h6 class="text-secondary mb-2">Latest Testimonials</h6>
+                        {% for testimonial in testimonials|slice:':3' %}
+                            <div class="mb-3 pb-2 border-bottom">
+                                <p class="mb-1">"{{ testimonial.text }}"</p>
+                                <small class="text-muted">- {{ testimonial.client_name }}, {{ testimonial.profession }}</small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    </div>
                     <div class="owl-carousel testimonial-carousel">
+                        {% for testimonial in testimonials %}
                         <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-1.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
+                            {% if testimonial.image %}
+                            <img class="img-fluid mb-3" src="{{ testimonial.image.url }}" alt="{{ testimonial.client_name }}">
+                            {% endif %}
+                            <p class="fs-5">{{ testimonial.text }}</p>
+                            <h5>{{ testimonial.client_name }}</h5>
+                            <span class="text-primary">{{ testimonial.profession }}</span>
                         </div>
-                        <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-2.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
-                        </div>
-                        <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-3.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
-                        </div>
-                        <div class="testimonial-item">
-                            <img class="img-fluid mb-3" src="{% static 'img/testimonial-4.jpg' %}" alt="">
-                            <p class="fs-5">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <h5>Client Name</h5>
-                            <span class="text-primary">Profession</span>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

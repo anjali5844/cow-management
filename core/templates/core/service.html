@@ -86,7 +86,6 @@
                         <a href="{% url 'feature' %}" class="dropdown-item">Features</a>
                         <a href="{% url 'team' %}" class="dropdown-item">Our Team</a>
                         <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
-                        <a href="{% url 'notfound' %}" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
                 <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
@@ -123,51 +122,26 @@
                 <h1 class="mb-5">Services That We Offer For Entrepreneurs</h1>
             </div>
             <div class="row gy-5 gx-4">
-                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.1s">
+                {% for service in services %}
+                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
                     <div class="service-item d-flex h-100">
                         <div class="service-img">
-                            <img class="img-fluid" src="{% static 'img/service-1.jpg' %}" alt="">
+                            {% if service.image %}
+                            <img class="img-fluid" src="{{ service.image.url }}" alt="{{ service.title }}">
+                            {% endif %}
                         </div>
                         <div class="service-text p-5 pt-0">
                             <div class="service-icon">
-                                <img class="img-fluid rounded-circle" src="{% static 'img/service-1.jpg' %}" alt="">
+                                {% if service.image %}
+                                <img class="img-fluid rounded-circle" src="{{ service.image.url }}" alt="{{ service.title }}">
+                                {% endif %}
                             </div>
-                            <h5 class="mb-3">Best Animal Selection</h4>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
+                            <h5 class="mb-3">{{ service.title }}</h5>
+                            <p class="mb-4">{{ service.description }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item d-flex h-100">
-                        <div class="service-img">
-                            <img class="img-fluid" src="{% static 'img/service-2.jpg' %}" alt="">
-                        </div>
-                        <div class="service-text p-5 pt-0">
-                            <div class="service-icon">
-                                <img class="img-fluid rounded-circle" src="{% static 'img/service-2.jpg' %}" alt="">
-                            </div>
-                            <h5 class="mb-3">Breeding & Veterinary</h5>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pt-5 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item d-flex h-100">
-                        <div class="service-img">
-                            <img class="img-fluid" src="{% static 'img/service-3.jpg' %}" alt="">
-                        </div>
-                        <div class="service-text p-5 pt-0">
-                            <div class="service-icon">
-                                <img class="img-fluid rounded-circle" src="{% static 'img/service-3.jpg' %}" alt="">
-                            </div>
-                            <h5 class="mb-3">Care & Milking</h5>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-square rounded-circle" href=""><i class="bi bi-chevron-double-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
